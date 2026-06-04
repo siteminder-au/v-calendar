@@ -30,8 +30,13 @@ const props = defineProps<{
 
 const { isMonthly, eventsContext } = useCalendarGrid();
 
-const minDayIndex = computed(() => props.days[0].dayIndex);
-const maxDayIndex = computed(() => props.days[props.days.length - 1].dayIndex);
+// Guarded against an empty `props.days` (Vue 3.5's scheduler can re-evaluate
+// these computeds transiently before/while days settle). When empty, no cells
+// render, so the fallback index is inert.
+const minDayIndex = computed(() => props.days[0]?.dayIndex ?? 0);
+const maxDayIndex = computed(
+  () => props.days[props.days.length - 1]?.dayIndex ?? 0,
+);
 
 const cells = computed(() => {
   const result: Array<DateRangeCell<Event>> = [];

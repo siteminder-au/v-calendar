@@ -1,11 +1,19 @@
 {
-  "name": "v-calendar",
+  "name": "@siteminder/v-calendar",
   "type": "module",
-  "version": "3.1.2",
-  "description": "A calendar and date picker plugin for Vue.js.",
+  "version": "3.1.3",
+  "description": "SiteMinder fork of v-calendar (a calendar and date picker plugin for Vue.js) with Vue 3.5 reactivity guards.",
   "author": "Nathan Reyes <nathanreyes@me.com>",
-  "repository": "https://github.com/nathanreyes/v-calendar",
-  "homepage": "https://vcalendar.io",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/siteminder-au/v-calendar.git"
+  },
+  "bugs": "https://github.com/siteminder-au/v-calendar/issues",
+  "homepage": "https://github.com/siteminder-au/v-calendar#readme",
+  "publishConfig": {
+    "registry": "https://smbuild.jfrog.io/artifactory/api/npm/siteminder-npm/",
+    "access": "restricted"
+  },
   "main": "dist/cjs/index.js",
   "module": "dist/es/index.js",
   "jsdelivr": "dist/iife/index.js",

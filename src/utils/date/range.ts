@@ -181,6 +181,11 @@ export class DateRangeContext {
 
   render(data: RangeData, range: DateRange, days: DayParts[]) {
     let result = null;
+    // Vue 3.5's reactivity scheduler can re-evaluate `attributeContext` while
+    // `days` is empty (or, in principle, before it's initialised) — e.g. when a
+    // date click dismisses the popover and the calendar tears down. Guard the
+    // first/last access to avoid a TypeError on an empty/missing array.
+    if (!days || days.length === 0) return result;
     const startDayIndex = days[0].dayIndex;
     const endDayIndex = days[days.length - 1].dayIndex;
     if (range.hasRepeat) {
@@ -237,6 +242,10 @@ export class DateRangeContext {
   getCells(day: CalendarDay) {
     const records = Object.values(this.records);
     const result: DateRangeCell<any>[] = [];
+    // `day` can be transiently undefined during Vue 3.5 scheduler setup
+    // (reached via attributeContext.value.getCells(day.value) before props
+    // settle). Bail out rather than destructuring undefined.
+    if (!day) return result;
     const { dayIndex } = day;
     records.forEach(({ data, ranges }) => {
       ranges

@@ -1,21 +1,26 @@
 # VCalendar Plugin for Vue 3
 
+> **SiteMinder fork** (`@siteminder/v-calendar`) of [nathanreyes/v-calendar](https://github.com/nathanreyes/v-calendar).
+> Upstream is effectively unmaintained; this fork adds defensive guards so the
+> calendar/date picker works under Vue 3.5. See [CHANGELOG.md](CHANGELOG.md) for
+> fork-specific changes. The usage docs below still apply (see also https://vcalendar.io).
+
 A calendar and date picker plugin for [Vue.js](https://vuejs.org).
 
-[Vue.js](https://vuejs.org) 3.2+, [Popper.js](https://popper.js.org/docs/v2/) 2.0+ are required.
+[Vue.js](https://vuejs.org) 3.2+ (3.5 supported), [Popper.js](https://popper.js.org/docs/v2/) 2.0+ are required.
 
 ## Install Plugin
 
 ### NPM
 
 ```shell
-npm install v-calendar@next @popperjs/core
+npm install @siteminder/v-calendar @popperjs/core
 ```
 
 ### Yarn
 
 ```shell
-yarn add v-calendar@next @popperjs/core
+yarn add @siteminder/v-calendar @popperjs/core
 ```
 
 ## Use Plugin

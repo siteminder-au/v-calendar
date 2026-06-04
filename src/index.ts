@@ -21,3 +21,6 @@ export { popoverDirective } from './utils/popovers';
 
 export { createCalendar, useCalendar } from './use/calendar';
 export { createDatePicker, useDatePicker } from './use/datePicker';
+// Exposed for consumers that need to construct/test the range context directly
+// (not part of upstream v-calendar's public surface).
+export { DateRangeContext } from './utils/date/range';

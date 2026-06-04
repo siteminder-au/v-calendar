@@ -111,4 +111,35 @@ describe('DateRangeContext', () => {
       });
     });
   });
+
+  // Regression: on Vue 3.5 the `attributeContext` computed can be re-evaluated
+  // while `_pages` (and therefore `days`) is empty — e.g. when a date click
+  // dismisses the popover and tears down the calendar. `render`/`getCells` must
+  // not crash on empty/missing input. See v-calendar issues #1498 / #1501
+  // ("Cannot read properties of undefined (reading 'dayIndex')").
+  describe('Vue 3.5 reactivity-scheduler guards', () => {
+    const range = locale.range(new Date(2023, 0, 15));
+
+    it('render() returns null and records nothing when days is empty', () => {
+      const ctx = new DateRangeContext();
+      let result: any;
+      expect(() => (result = ctx.render({ key: 'k' }, range, []))).not.toThrow();
+      expect(result).toBeNull();
+      // No range record should have been created (verified via public API).
+      expect(ctx.cellExists('k', 0)).toBe(false);
+    });
+
+    it('render() returns null when days is undefined', () => {
+      const ctx = new DateRangeContext();
+      expect(() =>
+        ctx.render({ key: 'k' }, range, undefined as any),
+      ).not.toThrow();
+    });
+
+    it('getCells() returns [] when day is undefined', () => {
+      const ctx = new DateRangeContext();
+      expect(() => ctx.getCells(undefined as any)).not.toThrow();
+      expect(ctx.getCells(undefined as any)).toEqual([]);
+    });
+  });
 });

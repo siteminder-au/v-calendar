@@ -115,3 +115,19 @@
 ## Improvements
 
 * Updates `date-fns-tz` to 2.0
+
+## 3.1.3 (SiteMinder fork — `@siteminder/v-calendar`)
+
+### Bug Fixes
+
+* Guards `DateRangeContext.render` against an empty/undefined `days` array and
+  `DateRangeContext.getCells` against an undefined `day`. Under Vue 3.5 the
+  `attributeContext` computed can be re-evaluated (via a `focusout` fired while
+  the calendar's DOM is removed during a popover dismiss) after the calendar's
+  pages have been cleared, causing
+  `TypeError: Cannot read properties of undefined (reading 'dayIndex')`
+  (upstream issues #1498 / #1501).
+
+### Other
+
+* Re-exports `DateRangeContext` from the package entry.
